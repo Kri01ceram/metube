@@ -108,12 +108,6 @@ app.post("/api/videos", async (req, res) => {
     });
             res.status(201).json(video);
 });
-app.delete("/api/videos/:id", async (req, res) => {
-    const userId = getUserId(req);
-    if (!userId) { return res.status(401).json({ error: "Unauthorized" }); return; }
-    const video = await prisma.uploads.findUnique({ where: { id: req.params.id } });
-    if (!video) { return res.status(404).json({ error: "Video not found" }); return; }
-    if (video.userId !== userId) { return res.status(403).json({ error: "Forbidden" }); return; }
-    await prisma.uploads.delete({ where: { id: req.params.id as string } });
-    res.json({ message: "Deleted" });
+app.listen(3000, () => {
+    console.log("Server is running on port 3000");
 });
