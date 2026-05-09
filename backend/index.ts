@@ -75,3 +75,45 @@ app.post("/api/signin", async (req, res) => {
     const token = jwt.sign({ userId: user.id }, JWT_SECRET);
     res.json({ token, userId: user.id });
 });
+
+// videos
+app.get("/api/videos", async (_req, res) => {    
+    const videos = await prisma.uploads.findMany({
+        include: { user: { select: { id: true, channelName: true, profilePicture: true, subscriberCount: true } } },
+        orderBy: { createdAt: "desc" },
+    });
+    res.json(videos);
+});
+app.get("/api/videos/:id", async (req, res) => {
+    const video = await prisma.uploads.findUnique({
+        where: { id: req.params.id },
+        include: { user: { select: { id: true, channelName: true, profilePicture: true, subscriberCount: true } } },
+    });
+    if (!video) {
+        return res.status(404).json({ error: "Video not found" });
+    }
+    res.json(video);
+});
+app.post("/api/videos", async (req, res) => {
+    const userId = getUserId(req);
+    if (!userId) {
+        return res.status(401).json({ error: "Unauthorized" });
+    }
+    const parsed = uploadSchema.safeParse(req.body);
+    if (!parsed.success) {
+        return res.status(400).json({ error: parsed.error.message });
+    }
+    const video = await prisma.uploads.create({
+            data:{ ...parsed.data, userId },
+    });
+            res.status(201).json(video);
+});
+app.delete("/api/videos/:id", async (req, res) => {
+    const userId = getUserId(req);
+    if (!userId) { return res.status(401).json({ error: "Unauthorized" }); return; }
+    const video = await prisma.uploads.findUnique({ where: { id: req.params.id } });
+    if (!video) { return res.status(404).json({ error: "Video not found" }); return; }
+    if (video.userId !== userId) { return res.status(403).json({ error: "Forbidden" }); return; }
+    await prisma.uploads.delete({ where: { id: req.params.id as string } });
+    res.json({ message: "Deleted" });
+});
