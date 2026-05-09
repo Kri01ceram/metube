@@ -39,3 +39,39 @@ const uploadSchema = z.object({
 });
 
 // Auth
+
+app.post("/api/signup", async (req, res) => {
+    const parsed = signupSchema.safeParse(req.body);
+    if (!parsed.success) {
+        return res.status(400).json({ error: parsed.error.message });
+    }
+    const { username, password, gender, channelName } = parsed.data;
+    const existing = await prisma.user.findFirst({ where: { username } });
+    if (existing) {
+        return res.status(409).json({ error: "Username already taken" });
+    }
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await prisma.user.create({
+        data: { username, password: hashedPassword, gender, channelName },
+    });
+    const token = jwt.sign({ userId: user.id }, JWT_SECRET);
+    res.status(201).json({ token, userId: user.id });
+});
+
+app.post("/api/signin", async (req, res) => {
+    const parsed = signinSchema.safeParse(req.body);
+    if (!parsed.success) {
+        return res.status(400).json({ error: parsed.error.message });
+    }
+    const { username, password } = parsed.data;
+    const user = await prisma.user.findFirst({ where: { username } });
+    if (!user) {
+        return res.status(401).json({ error: "Invalid credentials" });
+    }
+    const valid = await bcrypt.compare(password, user.password);
+    if (!valid) {
+        return res.status(401).json({ error: "Invalid credentials" });
+    }
+    const token = jwt.sign({ userId: user.id }, JWT_SECRET);
+    res.json({ token, userId: user.id });
+});
