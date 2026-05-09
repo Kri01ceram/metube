@@ -23,3 +23,19 @@ function getUserId(req: express.Request): string | null {
 }
 
 // validation scema
+const signupSchema = z.object({
+    username: z.string().min(3),
+    password: z.string().min(6),
+    gender: z.enum(["Male", "Female", "Other"]),
+    channelName: z.string().min(1),
+});
+const signinSchema = z.object({
+    username: z.string(),
+    password: z.string(),
+});
+const uploadSchema = z.object({
+    videoUrl: z.url(),
+    thumbnail: z.url(),
+});
+
+// Auth
