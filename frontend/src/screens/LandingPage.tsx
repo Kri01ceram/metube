@@ -17,3 +17,23 @@ export function LandingPage() {
         </div>
     );
 }
+interface IVideoCard {
+    imageUrl: string;
+    title: string;
+    channelImage: string;
+    channelName: string;
+}
+function VideoCard({ imageUrl, title, channelImage, channelName }: IVideoCard) {
+    return (
+        <div style={{ maxWidth: 300, borderRadius: 30 }}>
+            <img src={imageUrl} style={{ display: "block" }} />
+            <div>
+                {title}
+            </div>
+            <div>
+                <img src={channelImage} style={{ width: 30, borderRadius: "50%" }} />
+                {channelName}
+            </div>
+        </div>
+    );
+}
