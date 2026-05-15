@@ -2,18 +2,23 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export function LandingPage() {
-    const [videos, setVideos] = useState([]);
+    // const [videos, setVideos] = useState([]);
 
-    useEffect(() => {
-        axios.get("http://localhost:3000/api/videos")
-            .then(response => {
-                const data = response.data;
-            });
-    }, []);
+    // useEffect(() => {
+    //     axios.get("http://localhost:3000/api/videos")
+    //         .then(response => {
+    //             const data = response.data;
+    //         });
+    // }, []);
 
     return (
         <div>
-            <h1>Landing Page</h1>
+            <VideoCard
+                imageUrl="https://i.ytimg.com/an_webp/-Z4RGzhAH7Q/mqdefault_6s.webp?du=3000&sqp=COzomtAG&rs=AOn4CLCsLcklVBcrXUd9JxgUEgMB942CXg"
+                title="pagal h kya"
+                channelImage="https://yt3.googleusercontent.com/ytc/AIdro_mImkvPDsJNP_KLBPzIvlD6lj5et_G-k0Kt7-4mqCMAdJk=s160-c-k-c0x00ffffff-no-rj"
+                channelName="Casetoo"
+            />
         </div>
     );
 }
