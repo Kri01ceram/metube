@@ -34,7 +34,7 @@ interface IVideoCard {
 
 function VideoCard({ imageUrl, title, channelImage, channelName }: IVideoCard) {
     return (
-        <div style={{ margin:10, borderRadius: 20 }}>
+        <div style={{ margin:9, borderRadius: 20 }}>
             <img src={imageUrl} style={{ display: "block", width: "100%",borderRadius: 30 }} />
             <div>
                 {title}
