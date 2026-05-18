@@ -7,6 +7,7 @@ import { VideoPage } from "./screens/VideoPage";
 import { LandingPage } from "./screens/LandingPage";
 import { UploadPage } from "./screens/UploadPage.tsx";
 import { Appbar } from "./components/Appbar.tsx";
+import axios from "axios";
 
 export function App() {
   return (

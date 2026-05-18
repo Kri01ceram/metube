@@ -15,7 +15,6 @@ export function LandingPage() {
 
     return (
         <div >
-            <Appbar />
             <div style={{display:"flex", padding: 50}}>
             {videos.map(video =>
                 <VideoCard
