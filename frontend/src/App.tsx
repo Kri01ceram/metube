@@ -6,18 +6,22 @@ import { Signin } from "./screens/Signin";
 import { VideoPage } from "./screens/VideoPage";
 import { LandingPage } from "./screens/LandingPage";
 import { UploadPage } from "./screens/UploadPage.tsx";
+import { Appbar } from "./components/Appbar.tsx";
 
 export function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/watch" element={<VideoPage />} />
-        <Route path="/upload" element={<UploadPage />} />
-        <Route path="/" element={<LandingPage />} />
-      </Routes>
-    </BrowserRouter>
+    <div>
+      <Appbar />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route path="/watch" element={<VideoPage />} />
+          <Route path="/upload" element={<UploadPage />} />
+          <Route path="/" element={<LandingPage />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 
