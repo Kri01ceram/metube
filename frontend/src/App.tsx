@@ -5,6 +5,7 @@ import { Signup } from "./screens/Signup";
 import { Signin } from "./screens/Signin";
 import { VideoPage } from "./screens/VideoPage";
 import { LandingPage } from "./screens/LandingPage";
+import { UploadPage } from "./screens/UploadPage.tsx";
 
 export function App() {
   return (
@@ -13,6 +14,7 @@ export function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/watch" element={<VideoPage />} />
+        <Route path="/upload" element={<UploadPage />} />
         <Route path="/" element={<LandingPage />} />
       </Routes>
     </BrowserRouter>

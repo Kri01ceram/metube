@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Appbar } from "@/components/Appbar";
 
 export function LandingPage() {
     const [videos, setVideos] = useState([]);
@@ -13,15 +14,19 @@ export function LandingPage() {
     }, []);
 
     return (
-        <div style={{display:"flex", padding: 50}}>
+        <div >
+            <Appbar />
+            <div style={{display:"flex", padding: 50}}>
             {videos.map(video =>
                 <VideoCard
+                    href={`/watch?id=${video.id}`}
                     imageUrl={video.thumbnail}
                     title={video.title}
                     channelImage={video.user.profilePicture}
                     channelName={video.user.channelName}
                 />
             )}
+            </div>
         </div>
     );
 }
@@ -30,11 +35,12 @@ interface IVideoCard {
     title: string;
     channelImage: string;
     channelName: string;
+    href?: string;
 }
 
-function VideoCard({ imageUrl, title, channelImage, channelName }: IVideoCard) {
+function VideoCard({ imageUrl, title, channelImage, channelName,href }: IVideoCard) {
     return (
-        <div style={{ margin:9, borderRadius: 20 }}>
+        <div style={{ margin:9, borderRadius: 20 }} onClick={()=> window.location = href}>
             <img src={imageUrl} style={{ display: "block", width: "100%",borderRadius: 30 }} />
             <div>
                 {title}
