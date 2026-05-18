@@ -13,15 +13,15 @@ export function LandingPage() {
     }, []);
 
     return (
-        <div style={{display:"flex"}}>
-            {videos.map((video: any) => (
+        <div style={{display:"flex", padding: 50}}>
+            {videos.map(video =>
                 <VideoCard
-                    imageUrl={video.imageUrl}
+                    imageUrl={video.thumbnail}
                     title={video.title}
-                    channelImage={video.channelImage}
-                    channelName={video.channelName}
+                    channelImage={video.user.profilePicture}
+                    channelName={video.user.channelName}
                 />
-            ))}
+            )}
         </div>
     );
 }
