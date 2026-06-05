@@ -15,6 +15,17 @@ export function VideoPage() {
     },[id])
     return (
         <div>
+            <video src={videoDetails?.videoUrl} />
+            <br />
+            <div>
+                {videoDetails?.title}
+            </div>
+            <div>
+                {videoDetails?.user.channelName}
+            </div>
+            <div>
+                {videoDetails?.user.profilePicture && <img src={videoDetails.user.profilePicture} style={{ width: 30, borderRadius: "50%" }} />}
+            </div>
             {videoDetails ? JSON.stringify(videoDetails) : "Loading..."}
         </div>
     );
