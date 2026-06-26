@@ -29,34 +29,132 @@ export function VideoPage() {
         return <div>Loading...</div>
     }
     return (
-        <div style={{display:"flex",justifyContent:"space-between",padding:50}}>
-            <div>
-                <video src={videoDetails?.videoUrl} />
-                <br />
-                <div>
-                    {videoDetails?.title}
-                </div>
-                <div>
-                    {videoDetails?.user.channelName}
-                </div>
-                <div>
-                    {videoDetails?.user.profilePicture && <img src={videoDetails.user.profilePicture} style={{ width: 30, borderRadius: "50%" }} />}
-                </div>
-           
+  <div
+    style={{
+      display: "grid",
+      gridTemplateColumns: "2fr 1fr",
+      gap: "25px",
+      padding: "35px",
+      background: "#eef2f7",
+      minHeight: "100vh",
+    }}
+  >
+    {/* Main Content */}
+    <div
+      style={{
+        background: "#fff",
+        borderRadius: "18px",
+        padding: "20px",
+        boxShadow: "0 10px 25px rgba(0,0,0,0.08)",
+      }}
+    >
+      <video
+        src={videoDetails?.videoUrl}
+        controls
+        style={{
+          width: "100%",
+          borderRadius: "15px",
+          background: "#000",
+        }}
+      />
+
+      <div style={{ marginTop: "20px" }}>
+        <h2
+          style={{
+            margin: 0,
+            fontSize: "28px",
+            color: "#222",
+          }}
+        >
+          {videoDetails?.title}
+        </h2>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            marginTop: "20px",
+            padding: "15px",
+            background: "#f5f7fb",
+            borderRadius: "12px",
+          }}
+        >
+          {videoDetails?.user.profilePicture && (
+            <img
+              src={videoDetails.user.profilePicture}
+              style={{
+                width: "60px",
+                height: "60px",
+                borderRadius: "50%",
+                objectFit: "cover",
+                marginRight: "15px",
+              }}
+            />
+          )}
+
+          <div>
+            <div
+              style={{
+                fontWeight: "600",
+                fontSize: "18px",
+              }}
+            >
+              {videoDetails?.user.channelName}
             </div>
-            <div>
-                {recommendedVideos.map(video =>
-                    <VideoCard
-                        href={`/watch?id=${video.id}`}
-                        imageUrl={video.thumbnail}
-                        title={video.title}
-                        channelImage={video.user.profilePicture}
-                        channelName={video.user.channelName}
-                    />
-                )}
+
+            <div
+              style={{
+                color: "#777",
+                marginTop: "4px",
+              }}
+            >
+              Video Creator
             </div>
-        
+          </div>
         </div>
-        
-    );
+      </div>
+    </div>
+
+    {/* Recommendations */}
+    <div
+      style={{
+        background: "#fff",
+        borderRadius: "18px",
+        padding: "20px",
+        boxShadow: "0 10px 25px rgba(0,0,0,0.08)",
+        height: "fit-content",
+      }}
+    >
+      <h3
+        style={{
+          marginTop: 0,
+          marginBottom: "20px",
+        }}
+      >
+        More Videos
+      </h3>
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "18px",
+          maxHeight: "75vh",
+          overflowY: "auto",
+        }}
+      >
+        {recommendedVideos.map((video) => (
+          <VideoCard
+            key={video.id}
+            href={`/watch?id=${video.id}`}
+            imageUrl={video.thumbnail}
+            title={video.title}
+            channelImage={video.user.profilePicture}
+            channelName={video.user.channelName}
+          />
+        ))}
+      </div>
+    </div>
+  </div>
+);
 }
